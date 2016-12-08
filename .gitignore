@@ -1,0 +1,5 @@
+.idea/
+rethinkdb_data/
+node_modules/
+coverage/
+npm-debug.log
