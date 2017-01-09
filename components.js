@@ -1,12 +1,14 @@
 "use strict";
 
 const option = require("commons/option");
+const search = require("commons/search");
 const bunyan = require("bunyan");
 
 function init() {
     return option().config.then(config => {
         module.exports.config = config;
         module.exports.clientData = require("commons/client-data")(config["client-data"]);
+        module.exports.searcher = new search.Searcher(config.elastic);
         module.exports.logger = bunyan.createLogger({
             name: "logic",
             level: config.log_level
