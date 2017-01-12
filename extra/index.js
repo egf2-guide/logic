@@ -6,6 +6,7 @@ const handleRegistry = {
     "DELETE user/follows": require("./user_follows").onDelete,
     "POST user/posts": require("./user_posts").onCreate,
     "DELETE user/posts": require("./user_posts").onDelete,
-    "POST post/offended": require("./post_offended").onCreate
+    "POST post/offended": require("./post_offended").onCreate,
+    "DELETE post/offended": require("./post_offended").onDelete
 };
 module.exports = handleRegistry;

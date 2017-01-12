@@ -14,11 +14,29 @@ function onCreate(event) {
                     .catch(err => {
                         log.error(err);
                     })
-                ))
+                )
+            )
         )
     );
 }
 
+// Rule #6
+function onDelete(event) {
+    if (event.user) {
+        return clientData.getGraphConfig().then(config =>
+            clientData.forEachPage(
+                last => searcher.search({object: "admin_role", count: config.pagination.max_count, after: last}),
+                admins => Promise.all(admins.results.map(admin => {
+                    return clientData.deleteEdge(admin, "offending_posts", event.edge.dst).catch(err => {
+                        log.error(err);
+                    });
+                }))
+            )
+        );
+    }
+}
+
 module.exports = {
-    onCreate
+    onCreate,
+    onDelete
 };
